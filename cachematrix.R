@@ -11,21 +11,21 @@
 ## to avoid duplicating previous calculations to invert a matrix.
 
 makeCacheMatrix <- function(x = matrix()) {
-  m<-NULL
+  m <- NULL
   
   ## function 1 - set the value of the matrix (note the '<<' operator meaning it is returned to a different environment)
-  set<-function(y){
-      x<<-y
-      m<<-NULL }
+  set <- function(y){
+      x <<- y
+      m <<-NULL }
 
   ## function 2 - get the value of the matrix
-  get<-function() x
+  get <- function() x
   
   ## function 3 - invert and set the value of the matrix
-  invertmatrix<-function(solve) m<<- solve() 
+  invertmatrix <- function(solve)m <<- solve() 
   
   ## function 4 - get the inverted value of the matrix 
-  getmatrix<-function() m
+  getmatrix <- function() m
   
   ##store the 4 created functions in a list
   list(set=set, get=get, invertmatrix=invertmatrix, getmatrix=getmatrix)
@@ -48,16 +48,16 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) { ## placeholder for parametes
 
     ## If m exists, and is not NULL return a message and the value m.
-    m<-x$getmatrix()
-    if(!is.null(m)){
+    m <- x$getmatrix()
+    if (!is.null(m)) {
         message("retrieving existing matrix")
         return(m)
     }
     
     ## Otherwise, get the matrix, invert it, and then set the inverted matrix (in essence 'caching' it)
     else{
-        matrix<-x$get()
-        m<-solve(matrix, ...)
+        matrix <- x$get()
+        m <- solve(matrix, ...)
         x$invertmatrix(m)
         m  
     }
